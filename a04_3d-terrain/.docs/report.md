@@ -23,6 +23,7 @@
     * [3.5.2 The vertex shader](#352-The-vertex-shader)
     * [3.5.3 The geometry shader](#353-The-geometry-shader)
     * [3.5.4 The fragment shader](#354-The-fragment-shader)
+    * [3.5.5 Smooth movement](#355-Smooth-movement)
 * [4 Final thoughts](#4-Final-thoughts)
 * [5 Sources](#5-Sources)
 
@@ -225,6 +226,11 @@ These texture coordinates are than combined with the previously calculates posit
 The fragment shader only receives a texture coordinate that should be mapped using the bound sampler. 
 
 Blending between the texture and the already drawn stuff is done by OpenGL. The `ParticleEmitter` component allows the user to set custom blending options if desired. The default is set to `[gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA]` correlating no normal alpha blending.
+
+#### 3.5.5 Smooth movement
+Note: I added smooth movement as a last addition after writing this report. I don't want to go into to much detail, because it's just the Bezier curve motion that we learned in class and used in the last hand-in.
+
+The curve uses the spawn position and two randomly generated control points to calculate the motion. The implementation can be found in the particle vertex shader. In the future I would like a to have options how these are generated and maybe add multiple points. But that's a story for a different time. I just wanted to note that that is also now implemented :D.
 
 ## 4. Final thoughts
 I really like the visual result of the simulation. It is really impressive to see, how simple such a visual representation can be at the end. That being said it took quite some time to get fully used to the geometry shader. This is of course logical but I still would have liked to get a bit more done, as usual. The particle system was quite a system to figure out but damn it was worth it. I'm super happy with how it turned out. There is still a bug with the drawing order and I would probably need to to the clipping manual it's still a system I'm proud of.

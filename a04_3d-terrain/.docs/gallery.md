@@ -56,8 +56,3 @@ I was testing some stuff to create an underwater filter. I tried to apply a spec
 This was the result of a test where I added a plane at y=0. This actually enables us to see a patter in the waves them self:
 
 ![](res/gallery/09-adding-a-plane.png)
-
-## The first particles
-These where the first particle _rectangles_ that where created using the geometric shader. It isn't perfect but it worked out at the end :).
-
-![](res/gallery/10-first-particles.png)

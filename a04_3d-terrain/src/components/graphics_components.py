@@ -13,7 +13,7 @@ class ParticleEmitter:
             sprite_sheet,
             life_time=10.0,
             emitting=True,
-            emit_interval=1.0,
+            emit_interval=0.5,
             max_particles=10,
             sprite_choices=None,
             opengl_blending=[gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA]):
@@ -34,6 +34,8 @@ class ParticleEmitter:
         self.data_emit_time = []
         self.data_emit_position = []
         self.data_sprite_incices = []
+        self.data_life_times = []
+        self.data_target_positions = []
 
 
 class SpriteSheet:

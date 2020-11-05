@@ -15,14 +15,16 @@ class ParticleEmitterSystem(esper.Processor):
             # Kill old ones
             while (emitter.particle_count > 0):
                 alive_time = self.world.time - emitter.data_emit_time[0]
-                if (alive_time < emitter.life_time):
+                if (alive_time < emitter.data_life_times[0]):
                     # All particles are to young to die
                     # And yes this comment says a lot about what is going to happen to the rest... }:D
                     break
 
                 emitter.data_emit_time.pop(0)
-                emitter.data_sprite_incices.pop(0)
+                emitter.data_life_times.pop(0)
                 emitter.data_emit_position.pop(0)
+                emitter.data_target_positions.pop(0)
+                emitter.data_sprite_incices.pop(0)
                 
                 emitter.particle_count -= 1
 
@@ -31,12 +33,19 @@ class ParticleEmitterSystem(esper.Processor):
                 emitter.emit_timer -= self.world.delta
                 if (emitter.emit_timer < 0):
                     if (emitter.particle_count < emitter.max_particles):
+                        target_offset1 = glm.vec3(random.uniform(-100.0, 100.0), random.uniform(0.0, 50.0), random.uniform(-100.0, 100.0))
+                        target_offset2 = glm.vec3(random.uniform(-100.0, 100.0), random.uniform(-50.0, 50.0), random.uniform(-100.0, 100.0))
+                        
                         # Emit new
                         emitter.data_emit_time.append(self.world.time)
+                        emitter.data_life_times.append(emitter.life_time * random.uniform(0.5, 2.0))
                         emitter.data_emit_position.append(transformation.position * 1.0)
+                        emitter.data_target_positions.append([
+                            transformation.position + target_offset1,
+                            transformation.position + target_offset2])
                         emitter.data_sprite_incices.append(random.choice(emitter.sprite_choices))
 
-                        emitter.emit_timer = emitter.emit_interval
+                        emitter.emit_timer = emitter.emit_interval * random.uniform(0.5, 1.5)
                         emitter.particle_count += 1
 
 

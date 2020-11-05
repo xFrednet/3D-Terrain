@@ -54,7 +54,10 @@ class World(esper.World):
 
         self.create_entity(
             Transformation(position=glm.vec3(0.0, 45.0, 0.0)),
-            ParticleEmitter(SpriteSheet(Sprite('../res/particles/idc_particle_pack.png').gen_texture(), 2, 2))
+            ParticleEmitter(
+                SpriteSheet(Sprite('../res/particles/idc_particle_pack.png').gen_texture(), 2, 2),
+                life_time=50.0,
+                max_particles=128.0)
         )
 
         # The sun

@@ -241,8 +241,10 @@ class ParticleShader(Common3DShaderProgram):
         self.u_world_time = self._load_uniform_location("u_world_time")
 
         self.u_emit_times = self._load_uniform_location("u_emit_times")
+        self.u_life_times = self._load_uniform_location("u_life_times")
         self.u_emit_positions = self._load_uniform_location("u_emit_positions")
         self.u_sprite_incices = self._load_uniform_location("u_sprite_incices")
+        self.u_target_positions = self._load_uniform_location("u_target_positions")
 
         self.u_camera_position = self._load_uniform_location("u_camera_position")
         self.u_camera_up = self._load_uniform_location("u_camera_up")
@@ -259,11 +261,9 @@ class ParticleShader(Common3DShaderProgram):
         gl.glActiveTexture(gl.GL_TEXTURE0)
         gl.glEnable(gl.GL_CULL_FACE)
         gl.glEnable(gl.GL_BLEND)
-        gl.glDisable(gl.GL_DEPTH_TEST)
     
     def stop(self):
         super().stop()
-        gl.glEnable(gl.GL_DEPTH_TEST)
         gl.glDisable(gl.GL_BLEND)
         gl.glDisable(gl.GL_CULL_FACE)
 
@@ -294,11 +294,23 @@ class ParticleShader(Common3DShaderProgram):
             gl.glUniform1f(
                 self.u_emit_times + index,
                 emitter.data_emit_time[index])
+            gl.glUniform1f(
+                self.u_life_times + index,
+                emitter.data_life_times[index])
             gl.glUniform3fv(
                 self.u_emit_positions + index,
                 1,
                 glm.value_ptr(emitter.data_emit_position[index]))
+            gl.glUniform3fv(
+                self.u_target_positions + index * 2,
+                1,
+                glm.value_ptr(emitter.data_target_positions[index][0]))
+            gl.glUniform3fv(
+                self.u_target_positions + index * 2 + 1,
+                1,
+                glm.value_ptr(emitter.data_target_positions[index][1]))
             gl.glUniform1i(
                 self.u_sprite_incices + index,
                 emitter.data_sprite_incices[index])
+            
         
